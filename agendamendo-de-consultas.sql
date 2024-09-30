@@ -122,15 +122,10 @@ CREATE TABLE pedido_exame (
 CREATE TABLE resultado (
   id_resultado INTEGER NOT NULL,
   obsevacoes VARCHAR(300) NOT NULL,
-  id_pedido_exame INTEGER NOT NULL,
   CONSTRAINT pkResultado PRIMARY KEY (id_resultado),
-  CONSTRAINT fkResultadoPedidoExame FOREIGN KEY (id_pedido_exame)
-    REFERENCES pedido_exame (id_pedido_exame)
+
 );
 
-ALTER TABLE pedido_exame
-ADD CONSTRAINT fkPedidoExameResultado FOREIGN KEY (id_resultado)
-  REFERENCES resultado (id_resultado);
 
 CREATE TABLE prescricao (
   id_prescricao INTEGER NOT NULL,
@@ -141,3 +136,6 @@ CREATE TABLE prescricao (
   CONSTRAINT fkPrescricaoConsulta FOREIGN KEY (id_consulta)
     REFERENCES consulta (id_consulta)
 );
+
+ALTER TABLE resultado
+ADD COLUMN id_pedido_exame INTEGER, ADD CONSTRAINT fk_id_pedido_exame_resultado FOREIGN KEY (id_pedido_exame) REFERENCES pedido_exame (id_pedido_exame);
